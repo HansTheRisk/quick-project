@@ -5,6 +5,7 @@ import main.mapping.InventoryPersistor;
 import main.repository.CategoryRepository;
 import main.repository.ProductCategoryBridgeRepository;
 import main.repository.ProductRepository;
+import main.service.CategoryResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +30,9 @@ public class QuickProject {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CategoryResourceService categoryResourceService;
+
     public static void main(String[] args) {
         SpringApplication.run(QuickProject.class);
     }
@@ -37,6 +41,7 @@ public class QuickProject {
     ApplicationRunner applicationRunner() throws IOException {
         return args -> {
             inventoryPersistor.persist();
+            categoryResourceService.getCategories();
             log.info(categoryRepository.findAll());
             log.info(productCategoryBridgeRepository.findAll());
             log.info(productRepository.findAll());
