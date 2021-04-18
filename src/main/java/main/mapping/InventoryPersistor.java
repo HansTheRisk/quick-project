@@ -3,9 +3,7 @@ package main.mapping;
 import lombok.extern.log4j.Log4j2;
 import main.domain.Category;
 import main.domain.Product;
-import main.domain.ProductCategoryBridge;
 import main.repository.CategoryRepository;
-import main.repository.ProductCategoryBridgeRepository;
 import main.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,8 +19,6 @@ public class InventoryPersistor {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
-    @Autowired
-    private ProductCategoryBridgeRepository productCategoryBridgeRepository;
     @Autowired
     private InventoryJsonLoader inventoryJsonLoader;
 
@@ -43,8 +39,7 @@ public class InventoryPersistor {
     private void process(int parentId, CategoryMapping categoryMapping) {
         int id = 0;
         if(!categoryMapping.isRoot()) {
-            id = categoryRepository.save(new Category(parentId, categoryMapping.getName()))
-                                   .getId();
+            categoryRepository.save(new Category(parentId, categoryMapping.getName()));
             for(ProductMapping productMapping : categoryMapping.getProducts()) {
                 processProduct(id, productMapping);
             }
@@ -58,7 +53,6 @@ public class InventoryPersistor {
         try {
             UUID uuid = productRepository.save(new Product(productMapping.getName(), productMapping.getPrice()))
                                          .getId();
-            productCategoryBridgeRepository.save(new ProductCategoryBridge(uuid, categoryId));
         } catch (Exception e) {
             // Revert if fails
         }

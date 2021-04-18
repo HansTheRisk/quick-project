@@ -3,9 +3,7 @@ package main;
 import lombok.extern.log4j.Log4j2;
 import main.mapping.InventoryPersistor;
 import main.repository.CategoryRepository;
-import main.repository.ProductCategoryBridgeRepository;
 import main.repository.ProductRepository;
-import main.service.CategoryResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,16 +24,10 @@ public class QuickProject {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private ProductCategoryBridgeRepository productCategoryBridgeRepository;
-
-    @Autowired
     private ProductRepository productRepository;
 
     @Autowired
     private RedisServer redisServer;
-
-    @Autowired
-    private CategoryResourceService categoryResourceService;
 
     public static void main(String[] args) {
         SpringApplication.run(QuickProject.class);
@@ -46,9 +38,7 @@ public class QuickProject {
         return args -> {
             redisServer.start();
             inventoryPersistor.persist();
-            categoryResourceService.getCategories();
             log.info(categoryRepository.findAll());
-            log.info(productCategoryBridgeRepository.findAll());
             log.info(productRepository.findAll());
         };
     }
