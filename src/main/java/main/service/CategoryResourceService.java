@@ -3,15 +3,13 @@ package main.service;
 import main.domain.Category;
 import main.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class CategoryResourceService {
 
     @Autowired
@@ -19,22 +17,19 @@ public class CategoryResourceService {
 
     public CategoryResource getCategories() {
         LinkedList<Category> categories = categoryRepository.findAll();
-        Map<Integer, Category> categoryMap = categories.stream().collect(Collectors.toMap(Category::getId, Function.identity()));
 
         CategoryResource root = new CategoryResource(0, "root", new LinkedList<>(), true);
-        processCategory(root, categoryMap);
-        return null;
+        processCategory(root, categories);
+        return root;
     }
 
-    private void processCategory(CategoryResource root, Map<Integer, Category> categories) {
+    private void processCategory(CategoryResource root, LinkedList<Category> categories) {
         List<CategoryResource> level;
         if(root.isRoot()) {
-            level = categories.values()
-                              .stream().filter(c -> c.getParentId() == 0)
+            level = categories.stream().filter(c -> c.getParentId() == 0)
                               .map(c -> new CategoryResource(c.getId(), c.getName())).collect(Collectors.toList());
         } else {
-            level = categories.values()
-                    .stream().filter(c -> c.getParentId() == root.getId())
+            level = categories.stream().filter(c -> c.getParentId() == root.getId())
                     .map(c -> new CategoryResource(c.getId(), c.getName()))
                     .collect(Collectors.toList());
         }

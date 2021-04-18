@@ -5,18 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
-public class InventoryJsonLoader {
+public class InventoryLoader {
 
     private final ObjectMapper objectMapper;
     private final File jsonFile;
     private CategoryMapping inventory;
     
-    public InventoryJsonLoader(File jsonFile) {
+    public InventoryLoader(File jsonFile) {
         this.jsonFile = jsonFile;
         this.objectMapper = new ObjectMapper();
     }
 
-    public InventoryJsonLoader(File jsonFile, ObjectMapper objectMapper) {
+    public InventoryLoader(File jsonFile, ObjectMapper objectMapper) {
         this.jsonFile = jsonFile;
         this.objectMapper = objectMapper;
     }

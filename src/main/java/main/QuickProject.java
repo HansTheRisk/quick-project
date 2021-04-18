@@ -3,7 +3,6 @@ package main;
 import lombok.extern.log4j.Log4j2;
 import main.mapping.InventoryPersistor;
 import main.repository.CategoryRepository;
-import main.repository.ProductCategoryBridgeRepository;
 import main.repository.ProductRepository;
 import main.service.CategoryResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +24,6 @@ public class QuickProject {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private ProductCategoryBridgeRepository productCategoryBridgeRepository;
-
-    @Autowired
     private ProductRepository productRepository;
 
     @Autowired
@@ -41,10 +37,6 @@ public class QuickProject {
     ApplicationRunner applicationRunner() throws IOException {
         return args -> {
             inventoryPersistor.persist();
-            categoryResourceService.getCategories();
-            log.info(categoryRepository.findAll());
-            log.info(productCategoryBridgeRepository.findAll());
-            log.info(productRepository.findAll());
         };
     }
 
