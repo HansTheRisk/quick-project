@@ -3,6 +3,7 @@ SET MODE MySQL;
 CREATE TABLE IF NOT EXISTS categories (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(250) NOT NULL,
+    parent_id INT NOT NULL,
     UNIQUE(name),
     PRIMARY KEY(id)
 );
