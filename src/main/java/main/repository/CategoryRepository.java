@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public interface CategoryRepository extends CrudRepository<Category, Integer> {
 
-    @Query("SELECT c FROM Category c ORDER BY c.parent_id ASC")
+    @Query("SELECT c FROM Category c ORDER BY c.parentId ASC")
     LinkedList<Category> findAll();
 
 }
