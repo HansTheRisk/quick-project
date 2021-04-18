@@ -8,6 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,10 +20,9 @@ public class Category implements Serializable {
 
     @Id
     private String name;
-    private int parentId;
+    private List<Category> categories = new ArrayList<>();
 
-    public Category(int parentId, String name) {
-        this.parentId = parentId;
+    public Category(String name) {
         this.name = name;
     }
 
@@ -29,7 +30,7 @@ public class Category implements Serializable {
     public String toString() {
         return "Category{" +
                 "name='" + name + '\'' +
-                ", parentId=" + parentId +
+                ", categories=" + categories +
                 '}';
     }
 }
