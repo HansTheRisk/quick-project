@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,9 +13,9 @@ import java.util.List;
 @Setter
 public class CategoryMapping {
 
-    private List<CategoryMapping> categories = new ArrayList<>();
+    private LinkedList<CategoryMapping> categories = new LinkedList<>();
     private String name;
-    private List<ProductMapping> products = new ArrayList<>();
+    private LinkedList<ProductMapping> products = new LinkedList<>();
     private boolean isRoot = false;
 
     public void addCategory(CategoryMapping categoryMapping) {
