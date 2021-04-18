@@ -21,10 +21,12 @@ public class Product {
     private UUID id;
     private String name;
     private BigDecimal price;
+    private String categoryPath;
 
-    public Product(String name, BigDecimal price) {
+    public Product(String name, BigDecimal price, String categoryPath) {
         this.name = name;
         this.price = price;
+        this.categoryPath = categoryPath;
     }
 
     @Override
@@ -33,6 +35,7 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", categoryPath='" + categoryPath + '\'' +
                 '}';
     }
 }
