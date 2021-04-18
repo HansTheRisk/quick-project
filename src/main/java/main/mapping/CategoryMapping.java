@@ -18,12 +18,4 @@ public class CategoryMapping {
     private LinkedList<ProductMapping> products = new LinkedList<>();
     private boolean isRoot = false;
 
-    public void addCategory(CategoryMapping categoryMapping) {
-        categories.add(categoryMapping);
-    }
-
-    public void addProduct(ProductMapping productMapping) {
-        products.add(productMapping);
-    }
-
 }

@@ -9,7 +9,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import redis.embedded.RedisServer;
 
 import java.io.IOException;
 
@@ -26,9 +25,6 @@ public class QuickProject {
     @Autowired
     private ProductRepository productRepository;
 
-    @Autowired
-    private RedisServer redisServer;
-
     public static void main(String[] args) {
         SpringApplication.run(QuickProject.class);
     }
@@ -36,7 +32,6 @@ public class QuickProject {
     @Bean
     ApplicationRunner applicationRunner() throws IOException {
         return args -> {
-            redisServer.start();
             inventoryPersistor.persist();
             log.info(categoryRepository.findAll());
             log.info(productRepository.findAll());
